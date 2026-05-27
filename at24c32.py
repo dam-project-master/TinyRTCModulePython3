@@ -60,9 +60,15 @@ def main():
 	print(str(data[12]))
 	
 # open I2C Bus 1 -> Everytime
-i2c = smbus.SMBus(1)
+#i2c = smbus.SMBus(1)
+
+# i2c module initialization -> default I2C bus is 1, but you can also call it with another I2C bus if you want to use another one than 1.
+def init_i2c(I2C_BUS=1):
+	global i2c
+	i2c = smbus.SMBus(I2C_BUS)
 	
 # Only run when you are the main program. Not when you're importes as a module:
 if __name__ == '__main__':
+	init_i2c()
 	main()
 
