@@ -210,7 +210,28 @@ def ds1307_set_ram(addr, val):
 	# RAM starts at Address 0x08
 	addr = addr + 0x08
 	i2c.write_byte_data(ds1307addr, addr, val)	
-	
+
+def ds1307_set_now():
+	now = datetime.datetime.now()
+	ds1307_set_seconds(int(now.second))
+	ds1307_set_minutes(int(now.minute))
+	ds1307_set_hours(int(now.hour))
+	ds1307_set_day(int(now.strftime("%w")))
+	ds1307_set_date(int(now.day))
+	ds1307_set_month(int(now.month))
+	ds1307_set_year(int(now.year))
+
+def ds1307_get_now():
+	seconds = ds1307_get_seconds()
+	minutes = ds1307_get_minutes()
+	hours = ds1307_get_hours()
+	day = ds1307_get_day()
+	date = ds1307_get_date()
+	month = ds1307_get_month()
+	year = ds1307_get_year()
+	now = datetime.datetime(year, month, date, hours, minutes, seconds)
+	return now
+
 def main():
 	# Set RTC Control
 	# -> Set Clock to running
